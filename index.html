@@ -295,6 +295,32 @@
         document.getElementById('addProductModal').classList.remove('hidden');
     });
 
+    
+document.addEventListener('DOMContentLoaded', fetchProducts);
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajoutez l'écouteur d'événements pour le formulaire d'ajout de produit
+    document.getElementById('addProductForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Empêcher le rechargement de la page
+        const productData = {
+            name: document.getElementById('productName').value,
+            category: document.getElementById('productCategory').value,
+            reference: document.getElementById('productReference').value,
+            price: parseFloat(document.getElementById('productPrice').value),
+            quantity: parseInt(document.getElementById('productQuantity').value)
+        };
+
+        await addProduct(productData); // Appeler la fonction pour ajouter le produit
+        closeModal(); // Fermer le modal après l'ajout
+    });
+});
+
+// Fonction pour fermer le modal
+function closeModal() {
+    document.getElementById('addProductModal').classList.add('hidden'); // Masquer le modal
+}
+
+
+
     async function addProduct(productData) {
     try {
         // Récupérer les données existantes
@@ -350,33 +376,6 @@
     } catch (error) {
         console.error('Erreur:', error);
     }
-}
-document.addEventListener('DOMContentLoaded', fetchProducts);
-document.addEventListener('DOMContentLoaded', function() {
-    // Ajoutez l'écouteur d'événements pour le formulaire d'ajout de produit
-    document.getElementById('addProductForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); // Empêcher le rechargement de la page
-        const productData = {
-            name: document.getElementById('productName').value,
-            category: document.getElementById('productCategory').value,
-            reference: document.getElementById('productReference').value,
-            price: parseFloat(document.getElementById('productPrice').value),
-            quantity: parseInt(document.getElementById('productQuantity').value)
-        };
-
-        await addProduct(productData); // Appeler la fonction pour ajouter le produit
-        closeModal(); // Fermer le modal après l'ajout
-    });
-});
-
-// Fonction pour fermer le modal
-function closeModal() {
-    document.getElementById('addProductModal').classList.add('hidden'); // Masquer le modal
-}
-
-// Assurez-vous d'avoir la fonction addProduct définie quelque part dans votre code
-async function addProduct(productData) {
-    // Votre logique pour ajouter le produit
 }
 
     
