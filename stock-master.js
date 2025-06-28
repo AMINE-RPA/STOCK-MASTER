@@ -66,43 +66,6 @@ async function addProduct(productData) {
 
 
 
-
-    async function addProduct(productData) {
-    try {
-        // Récupérer les données existantes
-        const getResponse = await fetch('https://api.jsonbin.io/v3/b/685ece818561e97a502cde4a', {
-            headers: {
-                'X-Master-Key': '$2a$10$FBUwKcUwYQRm7bZQbDitjOBD6nIK8StVYx9dyu5G.GPwBmddUbKA.' // Remplacez par votre clé d'API
-            }
-        });
-
-        if (getResponse.ok) {
-            const currentData = await getResponse.json();
-            currentData.record.push(productData); // Ajouter le nouveau produit
-
-            // Mettre à jour le bin avec le tableau mis à jour
-            const updateResponse = await fetch('https://api.jsonbin.io/v3/b/685ece818561e97a502cde4a', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': '$2a$10$FBUwKcUwYQRm7bZQbDitjOBD6nIK8StVYx9dyu5G.GPwBmddUbKA.' // Remplacez par votre clé d'API
-                },
-                body: JSON.stringify(currentData.record)
-            });
-
-            if (updateResponse.ok) {
-                console.log('Produit ajouté avec succès:', productData);
-                // Vous pouvez également appeler une fonction pour mettre à jour l'interface utilisateur ici
-            } else {
-                console.error('Erreur lors de la mise à jour du produit:', updateResponse.statusText);
-            }
-        } else {
-            console.error('Erreur lors de la récupération des données:', getResponse.statusText);
-        }
-    } catch (error) {
-        console.error('Erreur:', error);
-    }
-}
     async function fetchProducts() {
     try {
         const response = await fetch('https://api.jsonbin.io/v3/b/685ece818561e97a502cde4a', {
