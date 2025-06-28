@@ -371,11 +371,10 @@ document.addEventListener('DOMContentLoaded', fetchProducts);
 
     
 function addProductToGrid(product) {
-    const productsGrid = document.getElementById(product_grid); // Sélectionner la grille de produits
+    const productsGrid = document.getElementById('product_grid'); // Sélectionner la grille de produits
     const productCard = document.createElement('div');
     productCard.className = 'product-card bg-white rounded-lg shadow overflow-hidden';
     productCard.innerHTML = `
-        <div class="product-card bg-white rounded-lg shadow overflow-hidden">
                 <div class="h-40 bg-gray-200 flex items-center justify-center">
                     <i class="fas fa-image text-gray-400 text-4xl"></i>
                 </div>
@@ -401,7 +400,6 @@ function addProductToGrid(product) {
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
-        </div>
     `;
     productsGrid.appendChild(productCard); // Ajouter la carte produit à la grille
 }
