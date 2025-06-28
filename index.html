@@ -314,7 +314,7 @@
     async function addProduct(productData) {
     try {
         // Récupérer les données existantes
-        const getResponse = await fetch('https://api.jsonbin.io/v3/bins/685ece818561e97a502cde4a', {
+        const getResponse = await fetch('https://api.jsonbin.io/v3/b/685ece818561e97a502cde4a', {
             headers: {
                 'X-Master-Key': '$2a$10$FBUwKcUwYQRm7bZQbDitjOBD6nIK8StVYx9dyu5G.GPwBmddUbKA.' // Remplacez par votre clé d'API
             }
@@ -325,7 +325,7 @@
             currentData.record.push(productData); // Ajouter le nouveau produit
 
             // Mettre à jour le bin avec le tableau mis à jour
-            const updateResponse = await fetch('https://api.jsonbin.io/v3/bins/685ece818561e97a502cde4a', {
+            const updateResponse = await fetch('https://api.jsonbin.io/v3/b/685ece818561e97a502cde4a', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -349,7 +349,7 @@
 }
     async function fetchProducts() {
     try {
-        const response = await fetch('https://api.jsonbin.io/v3/bins/685ece818561e97a502cde4a', {
+        const response = await fetch('https://api.jsonbin.io/v3/b/685ece818561e97a502cde4a', {
             headers: {
                 'X-Master-Key': '$2a$10$FBUwKcUwYQRm7bZQbDitjOBD6nIK8StVYx9dyu5G.GPwBmddUbKA.' // Remplacez par votre clé d'API
             }
