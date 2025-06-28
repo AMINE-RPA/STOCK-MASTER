@@ -105,7 +105,7 @@
         </div>
 
         <!-- Products Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div id='product_grid'class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <!-- Product Card 1 -->
             <div class="product-card bg-white rounded-lg shadow overflow-hidden">
                 <div class="h-40 bg-gray-200 flex items-center justify-center">
@@ -369,8 +369,9 @@
 }
 document.addEventListener('DOMContentLoaded', fetchProducts);
 
+    
 function addProductToGrid(product) {
-    const productsGrid = document.querySelector('.grid'); // Sélectionner la grille de produits
+    const productsGrid = document.getElementById(product_grid); // Sélectionner la grille de produits
     const productCard = document.createElement('div');
     productCard.className = 'product-card bg-white rounded-lg shadow overflow-hidden';
     productCard.innerHTML = `
