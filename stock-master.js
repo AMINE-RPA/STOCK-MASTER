@@ -1,45 +1,9 @@
-// Sauvegarder les modifications
-async function saveProduct() {
-    try {
-        const response = await fetch(JSON_BIN_URL, {
-            headers: { "X-Master-Key": JSON_BIN_KEY }
-        });
-        const data = await response.json();
-        let products = data.record;
-
-        products[currentProductId] = {
-            name: nameInput.value,
-            price: priceInput.value,
-            description: descriptionInput.value,
-            image: products[currentProductId].image
-        };
-
-        await fetch(JSON_BIN_URL, {
-            method: "PUT",
-            headers: {
-                "X-Master-Key": JSON_BIN_KEY,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(products)
-        });
-
-        loadProducts();
-    } catch (error) {
-        console.error("Erreur de sauvegarde:", error);
-    }
-}
-
-    // Simple interactivity for the demo
-    document.querySelector('button.bg-blue-700').addEventListener('click', function() {
-        document.getElementById('addProductModal').classList.remove('hidden');
-    });
-
-    
-document.addEventListener('DOMContentLoaded', fetchProducts);
 document.addEventListener('DOMContentLoaded', function() {
     // Ajoutez l'écouteur d'événements pour le formulaire d'ajout de produit
     document.getElementById('addProductForm').addEventListener('submit', async function(event) {
         event.preventDefault(); // Empêcher le rechargement de la page
+
+        // Récupérer les données du formulaire
         const productData = {
             name: document.getElementById('productName').value,
             category: document.getElementById('productCategory').value,
@@ -48,8 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
             quantity: parseInt(document.getElementById('productQuantity').value)
         };
 
-        await addProduct(productData); // Appeler la fonction pour ajouter le produit
-        closeModal(); // Fermer le modal après l'ajout
+        // Appeler la fonction pour ajouter le produit
+        await addProduct(productData); 
+
+        // Fermer le modal après l'ajout
+        closeModal(); 
     });
 });
 
@@ -57,6 +24,46 @@ document.addEventListener('DOMContentLoaded', function() {
 function closeModal() {
     document.getElementById('addProductModal').classList.add('hidden'); // Masquer le modal
 }
+
+// Fonction pour ajouter un produit
+async function addProduct(productData) {
+    try {
+        // Récupérer les données existantes
+        const getResponse = await fetch('https://api.jsonbin.io/v3/bins/685ece818561e97a502cde4a', {
+            headers: {
+                'X-Master-Key': '$2a$10$FBUwKcUwYQRm7bZQbDitjOBD6nIK8StVYx9dyu5G.GPwBmddUbKA.' // Remplacez par votre clé d'API
+            }
+        });
+
+        if (getResponse.ok) {
+            const currentData = await getResponse.json();
+            currentData.record.products.push(productData); // Ajouter le nouveau produit
+
+            // Mettre à jour le bin avec le tableau mis à jour
+            const updateResponse = await fetch('https://api.jsonbin.io/v3/bins/685ece818561e97a502cde4a', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': '$2a$10$FBUwKcUwYQRm7bZQbDitjOBD6nIK8StVYx9dyu5G.GPwBmddUbKA.' // Remplacez par votre clé d'API
+                },
+                body: JSON.stringify(currentData.record)
+            });
+
+            if (updateResponse.ok) {
+                console.log('Produit ajouté avec succès:', productData);
+                // Vous pouvez également appeler une fonction pour mettre à jour l'interface utilisateur ici
+            } else {
+                console.error('Erreur lors de la mise à jour du produit:', updateResponse.statusText);
+            }
+        } else {
+            console.error('Erreur lors de la récupération des données:', getResponse.statusText);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
+
 
 
 
