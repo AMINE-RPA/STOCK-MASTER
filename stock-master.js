@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+        <script>
+            
+    document.addEventListener('DOMContentLoaded', function() {
     // Ajoutez l'écouteur d'événements pour le formulaire d'ajout de produit
     document.getElementById('addProductForm').addEventListener('submit', async function(event) {
         event.preventDefault(); // Empêcher le rechargement de la page
@@ -122,3 +125,4 @@ function addProductToGrid(product) {
     productsGrid.appendChild(productCard); // Ajouter la carte produit à la grille
 }
 
+       </script> 
